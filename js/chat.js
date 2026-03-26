@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // AI Knowledge Base
     const kb = {
+        'hey':"Hello there! I'm Rishav's AI assistant. How can I help you today?",
+        'hi':"Hello there! I'm Rishav's AI assistant. How can I help you today?",
         'greeting': "Hello there! I'm Rishav's AI assistant. How can I help you today?",
         'whoami': "I'm an AI assistant created by Rishav to help answer questions about his portfolio and background. Ask me anything!",
         'name': "My creator is Rishav Kumar. I'm just his humble AI assistant.",
