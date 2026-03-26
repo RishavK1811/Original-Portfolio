@@ -1,12 +1,138 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // -----------------------------------------------------------------
-    // Theme Toggle Logic
-    // -----------------------------------------------------------------
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // AOS (Animate on Scroll) Initialization
+    // ─────────────────────────────────────────────────────────────────────────
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 750,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 80,
+        });
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Custom Cursor
+    // ─────────────────────────────────────────────────────────────────────────
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorOutline = document.getElementById('cursor-outline');
+
+    if (cursorDot && cursorOutline) {
+        let mouseX = 0, mouseY = 0;
+        let outlineX = 0, outlineY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top  = `${mouseY}px`;
+        });
+
+        // Smooth follow for outline
+        function animateCursor() {
+            outlineX += (mouseX - outlineX) * 0.12;
+            outlineY += (mouseY - outlineY) * 0.12;
+            cursorOutline.style.left = `${outlineX}px`;
+            cursorOutline.style.top  = `${outlineY}px`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Hide when mouse leaves window
+        document.addEventListener('mouseleave', () => {
+            cursorDot.style.opacity = '0';
+            cursorOutline.style.opacity = '0';
+        });
+        document.addEventListener('mouseenter', () => {
+            cursorDot.style.opacity = '1';
+            cursorOutline.style.opacity = '1';
+        });
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Typing Animation
+    // ─────────────────────────────────────────────────────────────────────────
+    const typingEl = document.getElementById('typing-text');
+    if (typingEl) {
+        const phrases = [
+            'AI/ML Developer',
+            'Web Developer',
+            'Python Enthusiast',
+            'Fullstack Builder',
+            'Computer Vision Dev',
+            'Problem Solver',
+        ];
+        let phraseIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+        let typingSpeed = 90;
+
+        function typeLoop() {
+            const currentPhrase = phrases[phraseIdx];
+
+            if (isDeleting) {
+                charIdx--;
+                typingSpeed = 50;
+            } else {
+                charIdx++;
+                typingSpeed = 90;
+            }
+
+            typingEl.textContent = currentPhrase.substring(0, charIdx);
+
+            if (!isDeleting && charIdx === currentPhrase.length) {
+                // Pause at end of phrase
+                typingSpeed = 1800;
+                isDeleting = true;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                phraseIdx = (phraseIdx + 1) % phrases.length;
+                typingSpeed = 400;
+            }
+
+            setTimeout(typeLoop, typingSpeed);
+        }
+
+        // Start after a short delay so page loads first
+        setTimeout(typeLoop, 1200);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Background Dot Glow (Interactive Mouse Tracking)
+    // ─────────────────────────────────────────────────────────────────────────
+    const bgDotGlow = document.querySelector('.bg-dot-glow');
+    if (bgDotGlow) {
+        let currentX = window.innerWidth / 2;
+        let currentY = window.innerHeight / 2;
+        let targetX = currentX;
+        let targetY = currentY;
+
+        window.addEventListener('mousemove', (e) => {
+            targetX = e.clientX;
+            targetY = e.clientY;
+        });
+
+        function animateGlow() {
+            currentX += (targetX - currentX) * 0.06;
+            currentY += (targetY - currentY) * 0.06;
+            const radius = Math.min(window.innerWidth, window.innerHeight) * 0.18;
+            bgDotGlow.style.webkitMaskImage =
+                `radial-gradient(circle ${radius}px at ${currentX}px ${currentY}px, black 0%, transparent 100%)`;
+            bgDotGlow.style.maskImage =
+                `radial-gradient(circle ${radius}px at ${currentX}px ${currentY}px, black 0%, transparent 100%)`;
+            requestAnimationFrame(animateGlow);
+        }
+        animateGlow();
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Theme Toggle
+    // ─────────────────────────────────────────────────────────────────────────
     const themeToggleBtn = document.getElementById('theme-toggle');
     const htmlElement = document.documentElement;
     const themeIcon = themeToggleBtn ? themeToggleBtn.querySelector('i') : null;
 
-    // Check for saved theme
     const savedTheme = localStorage.getItem('theme') || 'dark';
     htmlElement.setAttribute('data-theme', savedTheme);
     updateThemeIcon(savedTheme);
@@ -15,119 +141,158 @@ document.addEventListener('DOMContentLoaded', () => {
         themeToggleBtn.addEventListener('click', () => {
             const currentTheme = htmlElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
             htmlElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateThemeIcon(newTheme);
-
-            // Update TagCanvas text color if using TagCanvas
-            if (window.TagCanvas && typeof reinitTagCanvas === 'function') {
-                reinitTagCanvas(newTheme);
-            }
         });
     }
 
     function updateThemeIcon(theme) {
         if (!themeIcon) return;
-        if (theme === 'dark') {
-            themeIcon.className = 'fa-solid fa-moon';
-        } else {
-            themeIcon.className = 'fa-solid fa-sun';
-        }
+        themeIcon.className = theme === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
     }
 
-    // -----------------------------------------------------------------
+    // ─────────────────────────────────────────────────────────────────────────
     // Smooth Scrolling & Active Nav Links
-    // -----------------------------------------------------------------
+    // ─────────────────────────────────────────────────────────────────────────
     const navLinks = document.querySelectorAll('.nav-links a');
     const sections = document.querySelectorAll('section');
 
-    // Smooth scroll
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             const href = link.getAttribute('href');
-            // Only prevent default if it's an anchor link
             if (href.startsWith('#')) {
                 e.preventDefault();
-                const targetId = href.substring(1);
-                const targetSection = document.getElementById(targetId);
-                
+                const targetSection = document.getElementById(href.substring(1));
                 if (targetSection) {
-                    window.scrollTo({
-                        top: targetSection.offsetTop - 100, // Offset for navbar
-                        behavior: 'smooth'
-                    });
+                    window.scrollTo({ top: targetSection.offsetTop - 100, behavior: 'smooth' });
                 }
             }
         });
     });
 
-    // Highlight active section on scroll
     window.addEventListener('scroll', () => {
         let current = '';
         sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (pageYOffset >= (sectionTop - 200)) {
+            if (pageYOffset >= (section.offsetTop - 200)) {
                 current = section.getAttribute('id');
             }
         });
-
         navLinks.forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('href') === `#${current}`) {
                 link.classList.add('active');
             }
         });
-    });
+    }, { passive: true });
 
-    // Prevent placeholder links from jumping to the top (`href="#"`)
     document.querySelectorAll('a[href="#"]').forEach(a => {
-        a.addEventListener('click', (e) => e.preventDefault());
+        a.addEventListener('click', e => e.preventDefault());
     });
 
-    // -----------------------------------------------------------------
-    // Contact Modal Logic
-    // -----------------------------------------------------------------
-    const bookCallBtn = document.getElementById('book-call');
-    const contactModal = document.getElementById('contact-modal');
-    const closeModalBtn = document.getElementById('close-modal');
-    const openMsgFormBtn = document.getElementById('open-msg-form');
-    const directMsgForm = document.getElementById('direct-msg-form');
+    // ─────────────────────────────────────────────────────────────────────────
+    // Skill Progress Bars (IntersectionObserver)
+    // ─────────────────────────────────────────────────────────────────────────
+    const skillBars = document.querySelectorAll('.skill-bar-fill');
+
+    if (skillBars.length) {
+        const barObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Small stagger: each bar animates shortly after it enters view
+                    const bar = entry.target;
+                    setTimeout(() => {
+                        bar.classList.add('animated');
+                    }, 100);
+                    barObserver.unobserve(bar);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        skillBars.forEach(bar => barObserver.observe(bar));
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Contact Form (main #contact section)
+    // ─────────────────────────────────────────────────────────────────────────
+    const contactForm = document.getElementById('contact-form');
+    const contactSuccess = document.getElementById('contact-success');
+    const contactSubmit = document.getElementById('contact-submit');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name    = document.getElementById('contact-name').value.trim();
+            const email   = document.getElementById('contact-email').value.trim();
+            const subject = document.getElementById('contact-subject').value.trim();
+            const message = document.getElementById('contact-message').value.trim();
+
+            if (!name || !email || !message) return;
+
+            // Save locally
+            const msgs = JSON.parse(localStorage.getItem('portfolio_contact_msgs') || '[]');
+            msgs.push({ name, email, subject, message, date: new Date().toLocaleString() });
+            localStorage.setItem('portfolio_contact_msgs', JSON.stringify(msgs));
+
+            // Visual feedback
+            if (contactSubmit) {
+                contactSubmit.innerHTML = '<i class="fa-solid fa-circle-check"></i> Sent!';
+                contactSubmit.style.background = '#10b981';
+                contactSubmit.disabled = true;
+            }
+
+            if (contactSuccess) {
+                contactSuccess.style.display = 'flex';
+            }
+
+            contactForm.reset();
+
+            setTimeout(() => {
+                if (contactSubmit) {
+                    contactSubmit.innerHTML = '<i class="fa-solid fa-paper-plane"></i> <span>Send Message</span>';
+                    contactSubmit.style.background = '';
+                    contactSubmit.disabled = false;
+                }
+                if (contactSuccess) {
+                    contactSuccess.style.display = 'none';
+                }
+            }, 3500);
+        });
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Contact Modal (Book a Call button)
+    // ─────────────────────────────────────────────────────────────────────────
+    const bookCallBtn     = document.getElementById('book-call');
+    const contactModal    = document.getElementById('contact-modal');
+    const closeModalBtn   = document.getElementById('close-modal');
+    const openMsgFormBtn  = document.getElementById('open-msg-form');
+    const directMsgForm   = document.getElementById('direct-msg-form');
     const portfolioMsgForm = document.getElementById('portfolio-msg-form');
-    const msgSuccess = document.getElementById('msg-success');
+    const msgSuccess      = document.getElementById('msg-success');
 
     if (bookCallBtn && contactModal) {
         bookCallBtn.addEventListener('click', (e) => {
             e.preventDefault();
             contactModal.classList.add('active');
         });
-
         closeModalBtn.addEventListener('click', () => {
             contactModal.classList.remove('active');
-            // reset form state
             directMsgForm.style.display = 'none';
             msgSuccess.style.display = 'none';
             portfolioMsgForm.reset();
         });
-
-        // Close on outside click
         contactModal.addEventListener('click', (e) => {
-            if (e.target === contactModal) {
-                contactModal.classList.remove('active');
-            }
+            if (e.target === contactModal) contactModal.classList.remove('active');
         });
     }
 
     if (openMsgFormBtn && directMsgForm) {
         openMsgFormBtn.addEventListener('click', () => {
-            if (directMsgForm.style.display === 'none') {
-                directMsgForm.style.display = 'block';
-                setTimeout(() => {
-                    directMsgForm.scrollIntoView({ behavior: 'smooth', block: 'end' });
-                }, 100);
-            } else {
-                directMsgForm.style.display = 'none';
+            directMsgForm.style.display = directMsgForm.style.display === 'none' ? 'block' : 'none';
+            if (directMsgForm.style.display === 'block') {
+                setTimeout(() => directMsgForm.scrollIntoView({ behavior: 'smooth', block: 'end' }), 100);
             }
         });
     }
@@ -135,26 +300,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (portfolioMsgForm) {
         portfolioMsgForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            const name = document.getElementById('sender-name').value;
+            const name  = document.getElementById('sender-name').value;
             const email = document.getElementById('sender-email').value;
-            const msg = document.getElementById('sender-msg').value;
-            
-            // Save securely strictly for owner (localStorage)
+            const msg   = document.getElementById('sender-msg').value;
             const existingMsgs = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
-            existingMsgs.push({
-                name: name,
-                email: email,
-                message: msg,
-                date: new Date().toLocaleString()
-            });
+            existingMsgs.push({ name, email, message: msg, date: new Date().toLocaleString() });
             localStorage.setItem('portfolio_messages', JSON.stringify(existingMsgs));
-            
-            // Show success
             msgSuccess.style.display = 'block';
             portfolioMsgForm.reset();
-            
-            // Auto close after 2.5 seconds
             setTimeout(() => {
                 contactModal.classList.remove('active');
                 directMsgForm.style.display = 'none';
@@ -163,86 +316,65 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Mindset Carousel Drag & Infinite Scroll Logic
+    // ─────────────────────────────────────────────────────────────────────────
+    // Mindset Carousel (Infinite drag scroll)
+    // ─────────────────────────────────────────────────────────────────────────
     const mindsetCarousel = document.getElementById('mindset-carousel');
     if (mindsetCarousel) {
-        let isDown = false;
-        let startX;
-        let scrollLeft;
+        let isDown = false, startX, scrollLeft;
 
-        // Create clones for infinite loop
         const slides = Array.from(mindsetCarousel.children);
         const slideCount = slides.length;
-        
-        // Clone for end (append)
-        slides.forEach(slide => {
-            let clone = slide.cloneNode(true);
-            mindsetCarousel.appendChild(clone);
-        });
-        
-        // Clone for beginning (prepend)
-        slides.slice().reverse().forEach(slide => {
-            let clone = slide.cloneNode(true);
-            mindsetCarousel.prepend(clone);
-        });
 
-        // Initialize position to the middle (original) set
+        // Clone for infinite loop
+        slides.forEach(s => mindsetCarousel.appendChild(s.cloneNode(true)));
+        slides.slice().reverse().forEach(s => mindsetCarousel.prepend(s.cloneNode(true)));
+
         setTimeout(() => {
             mindsetCarousel.style.scrollBehavior = 'auto';
             mindsetCarousel.scrollLeft = mindsetCarousel.offsetWidth * slideCount;
-            // Re-enable smooth after initial jump
             setTimeout(() => mindsetCarousel.style.scrollBehavior = 'smooth', 50);
         }, 100);
 
-        // Infinite Scroll reset
         mindsetCarousel.addEventListener('scroll', () => {
-            if (isDown) return; // Don't snap while user is dragging
-            
-            const fw = mindsetCarousel.offsetWidth; // width of one slide
-            // If we scrolled into the first set (prepend clones)
+            if (isDown) return;
+            const fw = mindsetCarousel.offsetWidth;
             if (mindsetCarousel.scrollLeft <= fw * 0.5) {
-                mindsetCarousel.style.scrollBehavior = 'auto'; // disable smooth transition
-                mindsetCarousel.scrollLeft += fw * slideCount; // jump forward a full set
-                setTimeout(() => mindsetCarousel.style.scrollBehavior = 'smooth', 10);
-            } 
-            // If we scrolled into the last set (append clones)
-            else if (mindsetCarousel.scrollLeft >= fw * (slideCount * 2.5)) {
                 mindsetCarousel.style.scrollBehavior = 'auto';
-                mindsetCarousel.scrollLeft -= fw * slideCount; // jump backward a full set
+                mindsetCarousel.scrollLeft += fw * slideCount;
+                setTimeout(() => mindsetCarousel.style.scrollBehavior = 'smooth', 10);
+            } else if (mindsetCarousel.scrollLeft >= fw * (slideCount * 2.5)) {
+                mindsetCarousel.style.scrollBehavior = 'auto';
+                mindsetCarousel.scrollLeft -= fw * slideCount;
                 setTimeout(() => mindsetCarousel.style.scrollBehavior = 'smooth', 10);
             }
-        });
+        }, { passive: true });
 
-        // Mouse Drag to Scroll
         mindsetCarousel.addEventListener('mousedown', (e) => {
             isDown = true;
             mindsetCarousel.style.cursor = 'grabbing';
-            mindsetCarousel.style.scrollSnapType = 'none'; 
-            mindsetCarousel.style.scrollBehavior = 'auto'; 
+            mindsetCarousel.style.scrollSnapType = 'none';
+            mindsetCarousel.style.scrollBehavior = 'auto';
             startX = e.pageX - mindsetCarousel.offsetLeft;
             scrollLeft = mindsetCarousel.scrollLeft;
         });
-        
+
         const stopDrag = () => {
-            if(!isDown) return;
+            if (!isDown) return;
             isDown = false;
             mindsetCarousel.style.cursor = 'grab';
             mindsetCarousel.style.scrollSnapType = 'x mandatory';
             mindsetCarousel.style.scrollBehavior = 'smooth';
-            
-            // Trigger scroll event manually to check bounds after dropping snap
             mindsetCarousel.dispatchEvent(new Event('scroll'));
         };
 
         mindsetCarousel.addEventListener('mouseleave', stopDrag);
         mindsetCarousel.addEventListener('mouseup', stopDrag);
-        
         mindsetCarousel.addEventListener('mousemove', (e) => {
             if (!isDown) return;
             e.preventDefault();
-            const x = e.pageX - mindsetCarousel.offsetLeft;
-            const walk = (x - startX) * 1.5; 
-            mindsetCarousel.scrollLeft = scrollLeft - walk;
+            mindsetCarousel.scrollLeft = scrollLeft - (e.pageX - mindsetCarousel.offsetLeft - startX) * 1.5;
         });
     }
+
 });
