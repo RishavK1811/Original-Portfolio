@@ -292,3 +292,4 @@ function initThreeJSGlobe(container) {
         camera.updateProjectionMatrix();
     });
 }
+
