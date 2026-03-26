@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio RK| Developer</title>
+    <!-- SEO Best Practices -->
+    <meta name="description" content="Portfolio of a Software Developer showcasing creative projects and technical skills.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Background Dot Pattern with Interactive Glow -->
+    <div class="bg-dot-base"></div>
+    <div class="bg-dot-glow"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <button type="button" id="theme-toggle" class="icon-btn glass-element" aria-label="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+        
+        <div class="nav-links glass-element" role="navigation">
+            <a href="#home" class="nav-item active">Home</a>
+            <a href="#about" class="nav-item">About</a>
+            <a href="#projects" class="nav-item">Projects</a>
+            <a href="#skills" class="nav-item">Skills</a>
+            <a href="#other" class="nav-item">Other</a>
+        </div>
+        
+        <button type="button" class="btn secondary-btn glass-element" id="book-call">
+            <i class="fa-regular fa-calendar"></i> Book a Call
+        </button>
+    </nav>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <span class="eyebrow">PORTFOLIO</span>
+                
+                <div class="hero-avatar">
+                    <img src="img/download (1).png" alt="Rishav's Avatar" id="hero-memoji" onerror="this.style.display='none'">
+                </div>
+
+                <h1 class="hero-title">Hi, I'm <span class="gradient-text">Rishav Kumar</span></h1>
+                
+                <!-- AI Agent Chatbox -->
+                <div class="ai-agent-container">
+                    <div class="ai-response-area" id="ai-response-area">
+                        <p class="ai-placeholder" style="opacity: 0.5;">Ask me anything about Rishav...</p>
+                    </div>
+                    
+                    <div class="ai-quick-actions">
+                        <button class="ai-pill" data-query="work">Work</button>
+                        <button class="ai-pill" data-query="about">About me</button>
+                        <button class="ai-pill" data-query="skills">Skills</button>
+                        <button class="ai-pill" data-query="contact">Contact</button>
+                    </div>
+
+                    <div class="ai-input-group">
+                        <input type="text" id="ai-input" placeholder="Ask anything about Rishav..." autocomplete="off">
+                        <button type="button" id="ai-send" aria-label="Send">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Scroll to Explore -->
+                <div class="scroll-indicator">
+                    <span class="scroll-text">Scroll to explore</span>
+                    <i class="fa-solid fa-chevron-down scroll-arrow"></i>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- About Section (Bento Grid) -->
+        <!-- About Section (Bento Grid) -->
+        <section id="about" class="section">
+            
+            <!-- Top Bento Row -->
+            <div class="bento-top-row">
+                <!-- Name Card -->
+                <div class="bento-name-card glass-element">
+                    <h2 class="bento-name">RISHAV<br>KUMAR</h2>
+                    <div class="bento-divider"></div>
+                    <p class="bento-title">FULLSTACK DEVELOPER</p>
+                </div>
+                
+                <!-- Hover Cards -->
+                <div class="bento-hover-container glass-element">
+                    <div class="hover-badge">HOVER TO READ MORE</div>
+                    <div class="hover-cards-wrapper">
+                        
+                        <div class="hover-card">
+                            <h4>UNIVERSITY</h4>
+                            <div class="hover-content">
+                                <p>Pursuing BCA with a strong foundation in AI and system-level computing.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="hover-card">
+                            <h4>AI & ML FOCUS</h4>
+                            <div class="hover-content">
+                                <p>Training models and building intelligent, data-driven applications in Python.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="hover-card">
+                            <h4>PROJECTS</h4>
+                            <div class="hover-content">
+                                <p>Developing real-time computer vision tools and interactive web experiences.</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-grid">
+                <!-- Mindset Card (Left) -->
+                <div class="bento-card mindset-card glass-element">
+                    <h3>Mindset</h3>
+                    <p><strong>Building more than software.</strong> My passions provide the <strong>discipline and focus</strong> I need to grow.</p>
+                    
+                    <div class="mindset-carousel-container">
+                        <div class="mindset-carousel" id="mindset-carousel">
+                            <div class="carousel-slide">
+                                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=500&h=600&fit=crop" alt="Gym" class="carousel-img" draggable="false">
+                                <span class="mindset-label">FITNESS & DISCIPLINE</span>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=500&h=600&fit=crop" alt="Learning" class="carousel-img" draggable="false">
+                                <span class="mindset-label">CONTINUOUS KNOWLEDGE</span>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500&h=600&fit=crop" alt="Gaming" class="carousel-img" draggable="false">
+                                <span class="mindset-label">GAMING & STRATEGY</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="bottom-text"><strong>Mastering body and mind</strong> is my path to <strong>excellence</strong>.</p>
+                </div>
+                
+                <!-- Middle Column -->
+                <div class="bento-col-middle">
+                    <!-- Profile Image -->
+                    <div class="bento-card profile-card glass-element">
+                        <img src="img/me photo.png" alt="Rishav Kumar" class="bento-profile-img">
+                    </div>
+                    
+                    <!-- Location -->
+                    <div class="bento-card location-card glass-element">
+                        <div class="location-content">
+                            <h3>INDIA</h3>
+                            <p class="coords">20.5937° N, 78.9629° E</p>
+                            <p class="timezone">- GMT+5:30</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Craft Card (Right) -->
+                <div class="bento-card craft-card glass-element">
+                    <h3>Craft</h3>
+                    <p>Building scalable <strong>web apps, AI systems, and automations</strong>.</p>
+                    <p class="text-muted">I understand what advantages modern tech can provide, helping me build intelligent, data-driven solutions a business actually needs.</p>
+                    
+                    <div class="tech-stack-row">
+                        <span class="tech-item"><i class="fa-brands fa-python" style="color: #3776AB;"></i> PYTHON</span>
+                        <span class="tech-item"><i class="fa-brands fa-js" style="color: #F7DF1E;"></i> NODE</span>
+                        <span class="tech-item"><i class="fa-solid fa-code" style="color: #38B2AC;"></i> TAILWIND</span>
+                        <span class="tech-item"><i class="fa-brands fa-linux" style="color: #FCC624;"></i> LINUX</span>
+                    </div>
+                    
+                    <p class="text-muted bottom-text">Building a strong foundation in AI/ML through Python and practical projects. Open to collaboration.</p>
+                    <div class="collaboration-status">
+                        <div class="status-dot"></div>
+                        <span>Open to collaboration & freelance</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Projects -->
+        <section id="projects" class="section">
+            <div class="section-header">
+                <span class="eyebrow">PORTFOLIO</span>
+                <h2 class="section-title">Featured <span class="gradient-text-alt">Projects</span></h2>
+                <p class="section-desc">A curated selection of projects that showcase my capabilities in building scalable software.</p>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <article class="project-card orange-glow">
+                    <div class="card-meta">
+                        <span class="project-number">01</span>
+                        <span class="project-type">— DESKTOP APP</span>
+                    </div>
+                    <h3 class="project-name">Cube Solver</h3>
+                    <div class="project-inner">
+                        <div class="project-content">
+                            <p>Desktop application using computer vision to scan and solve Rubik's Cube in real-time.</p>
+                            <div class="tags">
+                                <span>PYTHON</span>
+                                <span>OPENCV</span>
+                                <span>GUI</span>
+                            </div>
+                        </div>
+                        <div class="project-image orange-bg">
+                            <!-- Visual placeholder -->
+                            <div class="mockup-window">
+                                <div class="mockup-header">
+                                    <span class="dot red"></span>
+                                    <span class="dot yellow"></span>
+                                    <span class="dot green"></span>
+                                </div>
+                                <div class="mockup-body align-center">
+                                    <h4 style="color: white; font-family: 'Outfit'; font-size: 1.5rem;">CUBE SOLVER VISION</h4>
+                                    <p style="color: rgba(255,255,255,0.7); margin-top: 10px;">Scanning Face...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project-card green-glow">
+                    <div class="card-meta">
+                        <span class="project-number">02</span>
+                        <span class="project-type">— MOBILE APP</span>
+                    </div>
+                    <h3 class="project-name">Improvement Tree</h3>
+                    <div class="project-inner">
+                        <div class="project-content">
+                            <p>Full-stack mobile app with cloud server that gamifies personal development.</p>
+                            <div class="tags">
+                                <span>REACT NATIVE</span>
+                                <span>NODE.JS</span>
+                                <span>MONGODB</span>
+                            </div>
+                        </div>
+                        <div class="project-image green-bg">
+                            <!-- Visual placeholder -->
+                            <div class="mockup-phone">
+                                <div class="phone-screen">
+                                    <div class="tree-graphic"><i class="fa-solid fa-tree"></i></div>
+                                    <div class="stats-bar">
+                                        <span>Level 15</span>
+                                        <span>Exp +50</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 3: Login Page -->
+                <article class="project-card blue-glow wide-card">
+                    <div class="card-meta">
+                        <span class="project-number">03</span>
+                        <span class="project-type">— WEB COMPONENT</span>
+                    </div>
+                    <h3 class="project-name">Login Page</h3>
+                    <div class="project-inner wide-inner">
+                        <div class="project-content">
+                            <p>A sleek, responsive, and visually appealing login interface. Crafted with pixel-perfect modern HTML and CSS.</p>
+                            <div class="tags">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>UI DESIGN</span>
+                            </div>
+                            <br>
+                            <a href="https://rishavk1811.github.io/Login-page-/" target="_blank" rel="noopener noreferrer" class="btn primary-btn" style="margin-top: 1rem;">
+                                View Live <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+                        </div>
+                        <div class="project-image blue-cyan-gradient">
+                            <!-- Premium Login UI Mockup -->
+                            <div class="mockup-window login-mockup">
+                                <i class="fa-solid fa-user-circle avatar"></i>
+                                <h4>Welcome Back</h4>
+                                <p>Please enter your details</p>
+                                <div class="input-line"></div>
+                                <div class="input-line"></div>
+                                <div class="login-btn-mock"></div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="explore-all" style="margin-top: 4rem;">
+                <a href="https://github.com/RishavK1811" target="_blank" rel="noopener noreferrer" class="link-btn">Explore all projects on GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+        </section>
+
+        <!-- Skills Section with 3D Canvas -->
+        <section id="skills" class="section">
+            <div class="section-header" style="margin: 0 auto; text-align: center;">
+                <span class="eyebrow">TECH STACK</span>
+                <h2 class="section-title">My <span class="gradient-text-alt">Skills</span></h2>
+            </div>
+            
+            <div class="skills-container" style="min-height: 400px; position: relative;">
+                <div id="canvas-container" style="width: 100%; max-width: 600px; margin: 0 auto; aspect-ratio: 1/1;">
+                    <div id="threejs-canvas" style="width: 100%; height: 100%;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Other / Explore Section -->
+        <section id="other" class="section">
+            <div class="section-header text-center">
+                <h2 class="section-title">More to <span class="gradient-text">Explore</span></h2>
+                <p class="section-desc text-center" style="margin: 0 auto;">Check out these additional resources and connect with me</p>
+            </div>
+
+            <div class="explore-grid">
+                <!-- Guestbook -->
+                <a href="#" class="explore-card">
+                    <div class="explore-icon purple border-purple">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <h3>Guestbook</h3>
+                    <p>Leave your mark and see what others have to say</p>
+                    <span class="explore-link purple-text">Explore &rarr;</span>
+                </a>
+
+                <!-- Achievements -->
+                <a href="#" class="explore-card">
+                    <div class="explore-icon orange border-orange">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h3>Achievements</h3>
+                    <p>Milestones, certifications, and accomplishments</p>
+                    <span class="explore-link orange-text">Explore &rarr;</span>
+                </a>
+
+                <!-- Links -->
+                <a href="#" class="explore-card">
+                    <div class="explore-icon blue border-blue">
+                        <i class="fa-solid fa-link"></i>
+                    </div>
+                    <h3>My Links</h3>
+                    <p>Find me across the web and social platforms</p>
+                    <span class="explore-link blue-text">Explore &rarr;</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <span class="initials">RK</span>
+                <span class="copyright">&copy; 2026</span>
+                <span class="name">Rishav Kumar</span>
+            </div>
+            <div class="footer-center">
+                <p>Built with <i class="fa-solid fa-heart red-heart"></i> using CSS & JS</p>
+            </div>
+            <div class="footer-right">
+                <a href="#" aria-label="Github"><i class="fa-brands fa-git-alt"></i></a>
+                <a href="https://www.linkedin.com/in/rishav-kumar-317134368" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rishavkumar181101@gmail.com" target="_blank" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="modal-overlay">
+        <div class="modal-content glass-element">
+            <button type="button" class="close-modal" id="close-modal">&times;</button>
+            <h3 class="modal-title gradient-text-alt">Get In Touch</h3>
+            <p class="modal-subtitle">Choose how you'd like to reach out</p>
+            
+            <div class="contact-options">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rishavkumar181101@gmail.com" target="_blank" class="contact-card">
+                    <div class="icon-circle email-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <h4>Email</h4>
+                    <p>rishavkumar181101@gmail.com</p>
+                </a>
+                
+                <a href="tel:6204550755" class="contact-card">
+                    <div class="icon-circle phone-icon"><i class="fa-solid fa-phone"></i></div>
+                    <h4>Phone</h4>
+                    <p>+91 6204550755</p>
+                </a>
+                
+                <div class="contact-card" id="open-msg-form">
+                    <div class="icon-circle msg-icon"><i class="fa-solid fa-comment-dots"></i></div>
+                    <h4>Message</h4>
+                    <p>Direct message here</p>
+                </div>
+            </div>
+
+            <!-- Hidden Direct Message Form -->
+            <div id="direct-msg-form" class="direct-msg-container" style="display: none;">
+                <h4>Send a direct message</h4>
+                <form id="portfolio-msg-form">
+                    <input type="text" id="sender-name" placeholder="Your Name" required autocomplete="off">
+                    <input type="email" id="sender-email" placeholder="Your Email" required autocomplete="off">
+                    <textarea id="sender-msg" placeholder="Your Message..." rows="3" required></textarea>
+                    <button type="submit" class="btn primary-btn" style="width: 100%;">Send Secure Message <i class="fa-solid fa-paper-plane" style="margin-left: 5px;"></i></button>
+                </form>
+                <p id="msg-success" style="display: none; color: var(--accent-green); margin-top: 10px; font-size: 0.9rem; text-align: center;">Message saved securely!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="js/skills.js"></script>
+    <script src="js/chat.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
