@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     let typingTimeout;
+    let thinkingTimeout;
 
     // Smooth typing animation logic
     function typeWriter(text, element, speed = 20) {
@@ -47,8 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Process user queries
     function handleQuery(query) {
-        // Stop any ongoing typing animation
+        // Stop any ongoing typing animation and thinking timeout
         clearTimeout(typingTimeout);
+        clearTimeout(thinkingTimeout);
         
         query = query.toLowerCase().trim();
         if (!query) return;
@@ -70,11 +72,17 @@ document.addEventListener('DOMContentLoaded', () => {
             response = kb.work;
         }
 
-        // Trigger typing animation with new response
-        typeWriter(response, responseArea);
-        
         // Clear input field
-        inputField.value = '';
+        if (inputField) inputField.value = '';
+
+        // Show thinking state
+        responseArea.innerHTML = 'AI IS THINKING...<span class="ai-cursor"></span>';
+        responseArea.classList.add('active');
+
+        // Wait 3 seconds before displaying the response
+        thinkingTimeout = setTimeout(() => {
+            typeWriter(response, responseArea);
+        }, 3000);
     }
 
     // Event Listeners
