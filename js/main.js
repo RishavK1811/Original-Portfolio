@@ -1,6 +1,37 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // ─────────────────────────────────────────────────────────────────────────
+    // Lenis Smooth Scroll (Highly Responsive for Desktop & Mobile)
+    // ─────────────────────────────────────────────────────────────────────────
+    let lenis;
+    if (typeof Lenis !== 'undefined') {
+        lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            smoothTouch: true, // Smooth scrolling on mobile devices as requested
+            touchMultiplier: 2, // Slightly faster touch response
+        });
+
+        // Integrate Lenis with GSAP ScrollTrigger to prevent conflicts
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => {
+                lenis.raf(time * 1000);
+            });
+            gsap.ticker.lagSmoothing(0, 0);
+        } else {
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
     // AOS (Animate on Scroll) Initialization
     // ─────────────────────────────────────────────────────────────────────────
     if (typeof AOS !== 'undefined') {
@@ -56,11 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const typingEl = document.getElementById('typing-text');
     if (typingEl) {
         const phrases = [
-            'AI/ML Developer',
-            'Web Developer',
-            'Python Enthusiast',
-            'Fullstack Builder',
-            'Computer Vision Dev',
+            'Cybersecurity Enthusiast',
+            'BCA Student',
+            'Ethical Hacking Learner',
+            'Linux & Network Security',
+            'Web Developer & Security',
             'Problem Solver',
         ];
         let phraseIdx = 0;
@@ -99,32 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    // Background Dot Glow (Interactive Mouse Tracking)
+    // Background glow is now handled by js/background.js (canvas-based)
     // ─────────────────────────────────────────────────────────────────────────
-    const bgDotGlow = document.querySelector('.bg-dot-glow');
-    if (bgDotGlow) {
-        let currentX = window.innerWidth / 2;
-        let currentY = window.innerHeight / 2;
-        let targetX = currentX;
-        let targetY = currentY;
 
-        window.addEventListener('mousemove', (e) => {
-            targetX = e.clientX;
-            targetY = e.clientY;
-        });
-
-        function animateGlow() {
-            currentX += (targetX - currentX) * 0.06;
-            currentY += (targetY - currentY) * 0.06;
-            const radius = Math.min(window.innerWidth, window.innerHeight) * 0.18;
-            bgDotGlow.style.webkitMaskImage =
-                `radial-gradient(circle ${radius}px at ${currentX}px ${currentY}px, black 0%, transparent 100%)`;
-            bgDotGlow.style.maskImage =
-                `radial-gradient(circle ${radius}px at ${currentX}px ${currentY}px, black 0%, transparent 100%)`;
-            requestAnimationFrame(animateGlow);
-        }
-        animateGlow();
-    }
 
     // ─────────────────────────────────────────────────────────────────────────
     // Theme Toggle
@@ -165,24 +173,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 const targetSection = document.getElementById(href.substring(1));
                 if (targetSection) {
-                    window.scrollTo({ top: targetSection.offsetTop - 100, behavior: 'smooth' });
+                    if (lenis) {
+                        // Use Lenis smooth scroll if active
+                        lenis.scrollTo(targetSection, { offset: -100, duration: 1.2 });
+                    } else {
+                        window.scrollTo({ top: targetSection.offsetTop - 100, behavior: 'smooth' });
+                    }
                 }
             }
         });
     });
 
+    // Throttle scroll with RAF to prevent jank
+    let scrollRafPending = false;
     window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-            if (pageYOffset >= (section.offsetTop - 200)) {
-                current = section.getAttribute('id');
-            }
-        });
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
+        if (scrollRafPending) return;
+        scrollRafPending = true;
+        requestAnimationFrame(() => {
+            scrollRafPending = false;
+            let current = '';
+            sections.forEach(section => {
+                if (pageYOffset >= (section.offsetTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
         });
     }, { passive: true });
 
