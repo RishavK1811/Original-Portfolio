@@ -1,3 +1,16 @@
+/**
+ * hero-bg.js — Performance-optimized Three.js particle background
+ * for the hero section.
+ *
+ * Design choices for performance:
+ *  - BufferGeometry (vs Geometry) — fastest possible GPU upload
+ *  - PointsMaterial (no custom shaders)
+ *  - Low particle count (140) + sparse connecting lines (max 120)
+ *  - Tab-visibility API → pauses RAF when tab is hidden
+ *  - ResizeObserver for clean canvas resize without layout thrash
+ *  - Frustum-culled camera; no shadow maps, no expensive post-FX
+ */
+
 (function () {
     'use strict';
 
