@@ -22,22 +22,44 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     );
 
-    // 2. Reveal Project Cards
-    const cards = document.querySelectorAll('.premium-project-card');
-    
+    // 2. Reveal Showcase Cards with staggered entrance
+    const cards = document.querySelectorAll('.showcase-card');
+
     cards.forEach((card, index) => {
+        // Alternate entrance direction based on card layout
+        const inner = card.querySelector('.showcase-card-inner');
+        const isReversed = inner && inner.classList.contains('reverse');
+        const xOffset = isReversed ? 60 : -60;
+
         gsap.from(card, {
             scrollTrigger: {
                 trigger: card,
-                start: "top 85%", // when top of the card hits 85% of the viewport height
+                start: "top 85%",
                 toggleActions: "play none none reverse"
             },
             opacity: 0,
-            y: 40,
-            duration: 0.8,
+            x: xOffset,
+            y: 30,
+            duration: 1,
             ease: "power3.out",
-            delay: index * 0.1,
-            clearProps: "all" // removes inline styles after animation so CSS hover rules work
+            delay: index * 0.15,
+            clearProps: "all"
         });
     });
+
+    // 3. Reveal CTA footer
+    const cta = document.querySelector('.projects-cta');
+    if (cta) {
+        gsap.from(cta, {
+            scrollTrigger: {
+                trigger: cta,
+                start: "top 90%",
+            },
+            opacity: 0,
+            y: 20,
+            duration: 0.8,
+            ease: "power2.out",
+            clearProps: "all"
+        });
+    }
 });
