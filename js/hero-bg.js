@@ -1,16 +1,3 @@
-/**
- * hero-bg.js — Performance-optimized Three.js particle background
- * for the hero section.
- *
- * Design choices for performance:
- *  - BufferGeometry (vs Geometry) — fastest possible GPU upload
- *  - PointsMaterial (no custom shaders)
- *  - Low particle count (140) + sparse connecting lines (max 120)
- *  - Tab-visibility API → pauses RAF when tab is hidden
- *  - ResizeObserver for clean canvas resize without layout thrash
- *  - Frustum-culled camera; no shadow maps, no expensive post-FX
- */
-
 (function () {
     'use strict';
 
@@ -35,21 +22,28 @@
     const camera   = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
     camera.position.z = 80;
 
+    // On very small screens, skip the particle canvas entirely for perf
+    const isMobile = window.innerWidth <= 768;
+    const isTinyScreen = window.innerWidth <= 480;
+    if (isTinyScreen) return; // Not worth the GPU cost on small phones
+
     const renderer = new THREE.WebGLRenderer({
         canvas,
-        antialias: false,          // off for perf
-        alpha: true,               // transparent bg
-        powerPreference: 'default',// let browser decide
+        antialias: false,
+        alpha: true,
+        powerPreference: isMobile ? 'low-power' : 'default',
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // cap at 2x
+    // Cap pixel ratio to 1.5 to reduce fill-rate pressure
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 2));
     renderer.setClearColor(0x000000, 0);
 
     // ── Particles ────────────────────────────────────────────────────────────
-    const PARTICLE_COUNT = 140;
-    const SPREAD         = 120;   // XY spread radius
-    const DEPTH          = 60;    // Z spread
-    const LINE_THRESHOLD = 22;    // max dist for connecting line
-    const MAX_LINES      = 120;   // hard cap on line segments
+    // Fewer particles on mobile = massive GPU savings
+    const PARTICLE_COUNT = isMobile ? 60  : 140;
+    const SPREAD         = 120;
+    const DEPTH          = 60;
+    const LINE_THRESHOLD = 22;
+    const MAX_LINES      = isMobile ? 40  : 120;
 
     const positions = new Float32Array(PARTICLE_COUNT * 3);
     const velocities = [];        // tiny drift per particle
