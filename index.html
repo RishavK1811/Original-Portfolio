@@ -18,13 +18,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-    <!-- Background Effects -->
-    <div class="bg-dot-base"></div>
-    <div class="bg-dot-glow"></div>
-    <div class="bg-gradient-orb orb-1"></div>
-    <div class="bg-gradient-orb orb-2"></div>
+    <!-- Background is rendered by js/background.js canvas -->
 
     <!-- Navigation -->
     <nav class="navbar">
@@ -32,7 +29,7 @@
             <i class="fa-solid fa-moon"></i>
         </button>
         
-        <div class="nav-links glass-element" role="navigation">
+        <div class="nav-links glass-element" id="nav-links" role="navigation">
             <a href="#home" class="nav-item active">Home</a>
             <a href="#about" class="nav-item">About</a>
             <a href="#projects" class="nav-item">Projects</a>
@@ -40,6 +37,11 @@
             <a href="#contact" class="nav-item">Contact</a>
         </div>
         
+        <button type="button" id="hamburger-toggle" class="hamburger-btn" aria-label="Toggle Menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
 
     </nav>
 
@@ -68,7 +70,7 @@
                 </div>
 
                 <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="500">
-                    Building intelligent apps, web experiences, and AI-powered solutions that make a difference.
+                    Securing the digital frontier and building resilient experiences through code.
                 </p>
 
                 <!-- Hero CTA Buttons -->
@@ -110,93 +112,26 @@
 
         <!-- ===================== ABOUT SECTION ===================== -->
         <section id="about" class="section">
-
-            <!-- Top Bento Row -->
-            <div class="bento-top-row" data-aos="fade-up">
-                <div class="bento-name-card glass-element">
-                    <h2 class="bento-name">RISHAV<br>KUMAR</h2>
-                    <div class="bento-divider"></div>
-                    <p class="bento-title">FULLSTACK DEVELOPER</p>
+            <div class="container" data-aos="fade-up">
+                <div class="section-header text-center" style="margin-bottom: 2rem;">
+                    <h2 class="rgb-text-animated">ABOUT ME</h2>
                 </div>
-
-                <div class="bento-hover-container glass-element">
-                    <div class="hover-badge">HOVER TO READ MORE</div>
-                    <div class="hover-cards-wrapper">
-                        <div class="hover-card">
-                            <h4>UNIVERSITY</h4>
-                            <div class="hover-content">
-                                <p>Pursuing BCA with a strong foundation in AI and system-level computing.</p>
+                
+                <div class="about-grid-cyber" style="display: grid; grid-template-columns: 1fr; gap: 2rem; margin-top: 3rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+                    <div class="rgb-glow-card">
+                        <div class="rgb-card-content">
+                            <div class="about-text-content" style="font-size: 1.15rem; line-height: 1.8; color: var(--text-secondary); position: relative; z-index: 5;">
+                                <p style="margin-bottom: 2rem;">
+                                    I am a <strong>BCA student</strong> transitioning into the field of <span class="gradient-text" style="font-weight: 700;">Cybersecurity</span>. I have a foundation in Web Development and basic programming, which helps me understand how applications work from both development and security perspectives.
+                                </p>
+                                <p style="margin-bottom: 2rem;">
+                                    My current focus is on <strong>Cybersecurity</strong>, including <span style="color: #fff; border-bottom: 2px solid var(--accent-orange); text-shadow: 0 0 10px rgba(245,158,11,0.5);">Ethical Hacking</span>, <span style="color: #fff; border-bottom: 2px solid var(--accent-orange); text-shadow: 0 0 10px rgba(245,158,11,0.5);">Network Security</span>, and <span style="color: #fff; border-bottom: 2px solid var(--accent-orange); text-shadow: 0 0 10px rgba(245,158,11,0.5);">Linux</span>. I am actively learning and practicing security concepts, tools, and real-world scenarios.
+                                </p>
+                                <p>
+                                    I am highly interested in <strong>finding vulnerabilities</strong>, understanding system behavior, and <strong>improving security</strong>. My aim is to build a strong career in cybersecurity and continuously grow in this field.
+                                </p>
                             </div>
                         </div>
-                        <div class="hover-card">
-                            <h4>AI &amp; ML FOCUS</h4>
-                            <div class="hover-content">
-                                <p>Training models and building intelligent, data-driven applications in Python.</p>
-                            </div>
-                        </div>
-                        <div class="hover-card">
-                            <h4>PROJECTS</h4>
-                            <div class="hover-content">
-                                <p>Developing real-time computer vision tools and interactive web experiences.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bento-grid" data-aos="fade-up" data-aos-delay="100">
-                <!-- Mindset Card -->
-                <div class="bento-card mindset-card glass-element">
-                    <h3>Mindset</h3>
-                    <p><strong>Building more than software.</strong> My passions provide the <strong>discipline and focus</strong> I need to grow.</p>
-                    <div class="mindset-carousel-container">
-                        <div class="mindset-carousel" id="mindset-carousel">
-                            <div class="carousel-slide">
-                                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=500&h=600&fit=crop" alt="Gym" class="carousel-img" draggable="false">
-                                <span class="mindset-label">FITNESS &amp; DISCIPLINE</span>
-                            </div>
-                            <div class="carousel-slide">
-                                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=500&h=600&fit=crop" alt="Learning" class="carousel-img" draggable="false">
-                                <span class="mindset-label">CONTINUOUS KNOWLEDGE</span>
-                            </div>
-                            <div class="carousel-slide">
-                                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500&h=600&fit=crop" alt="Gaming" class="carousel-img" draggable="false">
-                                <span class="mindset-label">GAMING &amp; STRATEGY</span>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="bottom-text"><strong>Mastering body and mind</strong> is my path to <strong>excellence</strong>.</p>
-                </div>
-
-                <!-- Middle Column -->
-                <div class="bento-col-middle">
-                    <div class="bento-card profile-card glass-element">
-                        <img src="img/me photo.png" alt="Rishav Kumar" class="bento-profile-img">
-                    </div>
-                    <div class="bento-card location-card glass-element">
-                        <div class="location-content">
-                            <h3>INDIA</h3>
-                            <p class="coords">20.5937° N, 78.9629° E</p>
-                            <p class="timezone">— GMT+5:30</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Craft Card -->
-                <div class="bento-card craft-card glass-element">
-                    <h3>Craft</h3>
-                    <p>Building scalable <strong>web apps, AI systems, and automations</strong>.</p>
-                    <p class="text-muted">I understand what advantages modern tech can provide, helping me build intelligent, data-driven solutions a business actually needs.</p>
-                    <div class="tech-stack-row">
-                        <span class="tech-item"><i class="fa-brands fa-python" style="color:#3776AB;"></i> PYTHON</span>
-                        <span class="tech-item"><i class="fa-brands fa-js" style="color:#F7DF1E;"></i> NODE</span>
-                        <span class="tech-item"><i class="fa-solid fa-code" style="color:#38B2AC;"></i> TAILWIND</span>
-                        <span class="tech-item"><i class="fa-brands fa-linux" style="color:#FCC624;"></i> LINUX</span>
-                    </div>
-                    <p class="text-muted bottom-text">Building a strong foundation in AI/ML through Python and practical projects. Open to collaboration.</p>
-                    <div class="collaboration-status">
-                        <div class="status-dot"></div>
-                        <span>Open to collaboration &amp; freelance</span>
                     </div>
                 </div>
             </div>
@@ -204,105 +139,124 @@
 
         <!-- ===================== PROJECTS SECTION ===================== -->
         <section id="projects" class="section premium-projects-section">
-            <div class="section-header" data-aos="fade-up">
+            <div class="section-header text-center" style="margin: 0 auto;" data-aos="fade-up">
                 <span class="eyebrow">PORTFOLIO</span>
                 <h2 class="section-title">Featured <span class="gradient-text-alt">Projects</span></h2>
-                <p class="section-desc">A curated selection of projects that showcase my capabilities in building scalable software.</p>
+                <p class="section-desc" style="margin: 0 auto; max-width: 520px;">A curated selection of projects that showcase my capabilities in building scalable software.</p>
             </div>
 
-            <div class="premium-projects-grid">
+            <div class="showcase-projects">
                 <!-- Project 1: Cube Solver -->
-                <article class="premium-project-card card-orange">
-                    <div class="premium-project-image">
-                        <img src="https://images.unsplash.com/photo-1585358490823-98a89a73a54e?w=600&h=380&fit=crop" alt="Cube Solver">
-                        <div class="premium-project-glow overlay-orange"></div>
-                    </div>
-                    <div class="premium-project-content">
-                        <div class="project-meta">
-                            <span class="project-number">01</span>
-                            <span class="project-type">— DESKTOP APP</span>
+                <article class="showcase-card" data-accent="orange">
+                    <div class="showcase-card-inner">
+                        <div class="showcase-visual">
+                            <div class="showcase-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1585358490823-98a89a73a54e?w=600&h=450&fit=crop" alt="Cube Solver" loading="lazy">
+                                <div class="showcase-img-overlay"></div>
+                            </div>
+                            <span class="showcase-float-num">01</span>
+                            <div class="showcase-status live"><span class="status-pulse"></span> IN DEV</div>
                         </div>
-                        <h3 class="premium-project-title">Cube Solver</h3>
-                        <p class="premium-project-desc">Desktop application using computer vision to scan and solve Rubik's Cube in real-time using OpenCV.</p>
-                        <div class="premium-tags">
-                            <span>PYTHON</span>
-                            <span>OPENCV</span>
-                            <span>GUI</span>
-                        </div>
-                        <div class="premium-project-actions">
-                            <a href="#" class="btn primary-btn btn-sm">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
-                            </a>
-                            <a href="https://github.com/RishavK1811" target="_blank" rel="noopener noreferrer" class="btn secondary-btn btn-sm">
-                                <i class="fa-brands fa-github"></i> GitHub
-                            </a>
+                        <div class="showcase-info">
+                            <div class="showcase-category">
+                                <i class="fa-solid fa-display"></i> DESKTOP APP
+                            </div>
+                            <h3 class="showcase-title">Cube Solver</h3>
+                            <p class="showcase-desc">Desktop application using computer vision to scan and solve Rubik's Cube in real-time. Leverages OpenCV for color detection and Kociemba's algorithm for optimal solutions.</p>
+                            <div class="showcase-tech">
+                                <span class="tech-pill"><i class="fa-brands fa-python"></i> Python</span>
+                                <span class="tech-pill"><i class="fa-solid fa-eye"></i> OpenCV</span>
+                                <span class="tech-pill"><i class="fa-solid fa-window-maximize"></i> GUI</span>
+                            </div>
+                            <div class="showcase-actions">
+                                <a href="#" class="showcase-btn showcase-btn-primary">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+                                </a>
+                                <a href="https://github.com/RishavK1811" target="_blank" rel="noopener noreferrer" class="showcase-btn showcase-btn-ghost">
+                                    <i class="fa-brands fa-github"></i> Source
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </article>
 
                 <!-- Project 2: Improvement Tree -->
-                <article class="premium-project-card">
-                    <div class="premium-project-image">
-                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=380&fit=crop" alt="Improvement Tree App">
-                        <div class="premium-project-glow overlay-green"></div>
-                    </div>
-                    <div class="premium-project-content">
-                        <div class="project-meta">
-                            <span class="project-number">02</span>
-                            <span class="project-type">— MOBILE APP</span>
+                <article class="showcase-card" data-accent="green">
+                    <div class="showcase-card-inner reverse">
+                        <div class="showcase-visual">
+                            <div class="showcase-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=450&fit=crop" alt="Improvement Tree App" loading="lazy">
+                                <div class="showcase-img-overlay"></div>
+                            </div>
+                            <span class="showcase-float-num">02</span>
+                            <div class="showcase-status dev"><span class="status-pulse"></span> IN DEV</div>
                         </div>
-                        <h3 class="premium-project-title">Improvement Tree</h3>
-                        <p class="premium-project-desc">Full-stack mobile app with cloud server that gamifies personal development with XP and level ups.</p>
-                        <div class="premium-tags">
-                            <span>REACT NATIVE</span>
-                            <span>NODE.JS</span>
-                            <span>MONGODB</span>
-                        </div>
-                        <div class="premium-project-actions">
-                            <a href="#" class="btn primary-btn btn-sm">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
-                            </a>
-                            <a href="https://github.com/RishavK1811" target="_blank" rel="noopener noreferrer" class="btn secondary-btn btn-sm">
-                                <i class="fa-brands fa-github"></i> GitHub
-                            </a>
+                        <div class="showcase-info">
+                            <div class="showcase-category">
+                                <i class="fa-solid fa-mobile-screen-button"></i> MOBILE APP
+                            </div>
+                            <h3 class="showcase-title">Improvement Tree</h3>
+                            <p class="showcase-desc">Full-stack mobile app with cloud server that gamifies personal development with XP, level ups, and habit streaks. Designed to make self-improvement addictive.</p>
+                            <div class="showcase-tech">
+                                <span class="tech-pill"><i class="fa-brands fa-react"></i> React Native</span>
+                                <span class="tech-pill"><i class="fa-brands fa-node-js"></i> Node.js</span>
+                                <span class="tech-pill"><i class="fa-solid fa-database"></i> MongoDB</span>
+                            </div>
+                            <div class="showcase-actions">
+                                <a href="#" class="showcase-btn showcase-btn-primary">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+                                </a>
+                                <a href="https://github.com/RishavK1811" target="_blank" rel="noopener noreferrer" class="showcase-btn showcase-btn-ghost">
+                                    <i class="fa-brands fa-github"></i> Source
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </article>
 
                 <!-- Project 3: Login Page -->
-                <article class="premium-project-card wide-card card-blue">
-                    <div class="premium-project-image">
-                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=900&h=380&fit=crop" alt="Login Page Project">
-                        <div class="premium-project-glow overlay-blue"></div>
-                    </div>
-                    <div class="premium-project-content">
-                        <div class="project-meta">
-                            <span class="project-number">03</span>
-                            <span class="project-type">— WEB COMPONENT</span>
+                <article class="showcase-card" data-accent="blue">
+                    <div class="showcase-card-inner">
+                        <div class="showcase-visual">
+                            <div class="showcase-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=450&fit=crop" alt="Login Page Project" loading="lazy">
+                                <div class="showcase-img-overlay"></div>
+                            </div>
+                            <span class="showcase-float-num">03</span>
+                            <div class="showcase-status live"><span class="status-pulse"></span> LIVE</div>
                         </div>
-                        <h3 class="premium-project-title">Login Page</h3>
-                        <p class="premium-project-desc">A sleek, responsive, and visually appealing login interface. Crafted with pixel-perfect modern HTML.</p>
-                        <div class="premium-tags">
-                            <span>HTML</span>
-                            <span>CSS</span>
-                            <span>UI DESIGN</span>
-                        </div>
-                        <div class="premium-project-actions">
-                            <a href="https://rishavk1811.github.io/Login-page-/" target="_blank" rel="noopener noreferrer" class="btn primary-btn btn-sm">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
-                            </a>
-                            <a href="https://github.com/RishavK1811/Login-page-" target="_blank" rel="noopener noreferrer" class="btn secondary-btn btn-sm">
-                                <i class="fa-brands fa-github"></i> GitHub
-                            </a>
+                        <div class="showcase-info">
+                            <div class="showcase-category">
+                                <i class="fa-solid fa-code"></i> WEB COMPONENT
+                            </div>
+                            <h3 class="showcase-title">Login Page</h3>
+                            <p class="showcase-desc">A sleek, responsive, and visually appealing login interface. Crafted with pixel-perfect precision and glassmorphic design language.</p>
+                            <div class="showcase-tech">
+                                <span class="tech-pill"><i class="fa-brands fa-html5"></i> HTML5</span>
+                                <span class="tech-pill"><i class="fa-brands fa-css3-alt"></i> CSS3</span>
+                                <span class="tech-pill"><i class="fa-solid fa-palette"></i> UI Design</span>
+                            </div>
+                            <div class="showcase-actions">
+                                <a href="https://rishavk1811.github.io/Login-page-/" target="_blank" rel="noopener noreferrer" class="showcase-btn showcase-btn-primary">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+                                </a>
+                                <a href="https://github.com/RishavK1811/Login-page-" target="_blank" rel="noopener noreferrer" class="showcase-btn showcase-btn-ghost">
+                                    <i class="fa-brands fa-github"></i> Source
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </article>
             </div>
 
-            <div class="explore-all" data-aos="fade-up">
-                <a href="https://github.com/RishavK1811" target="_blank" rel="noopener noreferrer" class="link-btn">
-                    Explore all projects on GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <!-- Explore All CTA -->
+            <div class="projects-cta" data-aos="fade-up">
+                <div class="cta-line"></div>
+                <a href="https://github.com/RishavK1811" target="_blank" rel="noopener noreferrer" class="projects-cta-btn">
+                    <span>Explore all projects on GitHub</span>
+                    <i class="fa-solid fa-arrow-right"></i>
                 </a>
+                <div class="cta-line"></div>
             </div>
         </section>
 
@@ -322,51 +276,37 @@
             </div>
 
             <!-- Skill Progress Bars -->
-            <div class="skills-bars-grid" data-aos="fade-up" data-aos-delay="200">
+            <div class="skills-bars-grid" data-aos="fade-up" data-aos-delay="200" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
                 <div class="skill-category">
-                    <h4 class="skill-cat-title">Languages</h4>
-                    <div class="skill-bar-item" data-skill="Python" data-level="88">
+                    <h4 class="skill-cat-title">Programming</h4>
+                    <div class="skill-bar-item" data-skill="Python" data-level="60">
                         <div class="skill-bar-header">
-                            <span class="skill-name"><i class="fa-brands fa-python"></i> Python</span>
-                            <span class="skill-percent">88%</span>
+                            <span class="skill-name"><i class="fa-brands fa-python"></i> Python (Basic)</span>
+                            <span class="skill-percent">60%</span>
                         </div>
-                        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 88%;"></div></div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 60%;"></div></div>
                     </div>
-                    <div class="skill-bar-item" data-skill="JavaScript" data-level="78">
+                    <div class="skill-bar-item" data-skill="JavaScript" data-level="55">
                         <div class="skill-bar-header">
-                            <span class="skill-name"><i class="fa-brands fa-js"></i> JavaScript</span>
-                            <span class="skill-percent">78%</span>
+                            <span class="skill-name"><i class="fa-brands fa-js"></i> JavaScript (Basic)</span>
+                            <span class="skill-percent">55%</span>
                         </div>
-                        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 78%;"></div></div>
-                    </div>
-                    <div class="skill-bar-item" data-skill="C++" data-level="65">
-                        <div class="skill-bar-header">
-                            <span class="skill-name"><i class="fa-solid fa-code"></i> C++</span>
-                            <span class="skill-percent">65%</span>
-                        </div>
-                        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 65%;"></div></div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 55%;"></div></div>
                     </div>
                 </div>
 
                 <div class="skill-category">
-                    <h4 class="skill-cat-title">Frontend</h4>
-                    <div class="skill-bar-item" data-skill="HTML" data-level="95">
+                    <h4 class="skill-cat-title">Web Development</h4>
+                    <div class="skill-bar-item" data-skill="HTML/CSS" data-level="85">
                         <div class="skill-bar-header">
-                            <span class="skill-name"><i class="fa-brands fa-html5"></i> HTML5</span>
-                            <span class="skill-percent">95%</span>
+                            <span class="skill-name"><i class="fa-brands fa-html5"></i> HTML, CSS</span>
+                            <span class="skill-percent">85%</span>
                         </div>
-                        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 95%;"></div></div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 85%;"></div></div>
                     </div>
-                    <div class="skill-bar-item" data-skill="CSS" data-level="90">
+                    <div class="skill-bar-item" data-skill="Frontend" data-level="70">
                         <div class="skill-bar-header">
-                            <span class="skill-name"><i class="fa-brands fa-css3-alt"></i> CSS3</span>
-                            <span class="skill-percent">90%</span>
-                        </div>
-                        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 90%;"></div></div>
-                    </div>
-                    <div class="skill-bar-item" data-skill="React" data-level="70">
-                        <div class="skill-bar-header">
-                            <span class="skill-name"><i class="fa-brands fa-react"></i> React</span>
+                            <span class="skill-name"><i class="fa-solid fa-code"></i> Basic Frontend</span>
                             <span class="skill-percent">70%</span>
                         </div>
                         <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 70%;"></div></div>
@@ -374,27 +314,59 @@
                 </div>
 
                 <div class="skill-category">
-                    <h4 class="skill-cat-title">AI / Tools</h4>
-                    <div class="skill-bar-item" data-skill="Machine Learning" data-level="75">
+                    <h4 class="skill-cat-title">Cybersecurity</h4>
+                    <div class="skill-bar-item" data-skill="Networking" data-level="90">
                         <div class="skill-bar-header">
-                            <span class="skill-name"><i class="fa-solid fa-brain"></i> Machine Learning</span>
-                            <span class="skill-percent">75%</span>
+                            <span class="skill-name"><i class="fa-solid fa-network-wired"></i> Networking Basics</span>
+                            <span class="skill-percent">90%</span>
                         </div>
-                        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 75%;"></div></div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 90%;"></div></div>
                     </div>
-                    <div class="skill-bar-item" data-skill="OpenCV" data-level="80">
+                    <div class="skill-bar-item" data-skill="Linux" data-level="90">
                         <div class="skill-bar-header">
-                            <span class="skill-name"><i class="fa-solid fa-eye"></i> OpenCV</span>
-                            <span class="skill-percent">80%</span>
+                            <span class="skill-name"><i class="fa-brands fa-linux"></i> Linux Basics</span>
+                            <span class="skill-percent">90%</span>
                         </div>
-                        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 80%;"></div></div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 90%;"></div></div>
                     </div>
-                    <div class="skill-bar-item" data-skill="Git" data-level="85">
+                    <div class="skill-bar-item" data-skill="Ethical Hacking" data-level="45">
                         <div class="skill-bar-header">
-                            <span class="skill-name"><i class="fa-brands fa-git-alt"></i> Git &amp; GitHub</span>
-                            <span class="skill-percent">85%</span>
+                            <span class="skill-name"><i class="fa-solid fa-user-secret"></i> Ethical Hacking (Beg.)</span>
+                            <span class="skill-percent">45%</span>
                         </div>
-                        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 85%;"></div></div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 45%;"></div></div>
+                    </div>
+                    <div class="skill-bar-item" data-skill="Security Fundamentals" data-level="60">
+                        <div class="skill-bar-header">
+                            <span class="skill-name"><i class="fa-solid fa-shield-halved"></i> Cyber Fundamentals</span>
+                            <span class="skill-percent">60%</span>
+                        </div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 60%;"></div></div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4 class="skill-cat-title">Tools</h4>
+                    <div class="skill-bar-item" data-skill="Ubuntu" data-level="65">
+                        <div class="skill-bar-header">
+                            <span class="skill-name"><i class="fa-brands fa-ubuntu"></i> Ubuntu Linux</span>
+                            <span class="skill-percent">65%</span>
+                        </div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 65%;"></div></div>
+                    </div>
+                    <div class="skill-bar-item" data-skill="Nmap" data-level="40">
+                        <div class="skill-bar-header">
+                            <span class="skill-name"><i class="fa-solid fa-magnifying-glass"></i> Nmap (Learning)</span>
+                            <span class="skill-percent">40%</span>
+                        </div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 40%;"></div></div>
+                    </div>
+                    <div class="skill-bar-item" data-skill="Wireshark" data-level="35">
+                        <div class="skill-bar-header">
+                            <span class="skill-name"><i class="fa-solid fa-eye"></i> Wireshark (Learning)</span>
+                            <span class="skill-percent">35%</span>
+                        </div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 35%;"></div></div>
                     </div>
                 </div>
             </div>
@@ -594,11 +566,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
     <!-- Custom Scripts -->
-    <script src="js/hero-bg.js"></script>
+    <script src="js/background.js"></script>
     <script src="js/skills.js"></script>
     <script src="js/chat.js"></script>
     <script src="js/main.js"></script>
     <script src="js/projects.js"></script>
+    <script src="js/mobile-nav.js"></script>
 </body>
 </html>
