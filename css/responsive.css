@@ -1,3 +1,19 @@
+/* =========================================================================
+   RESPONSIVE STYLES — Additive only, does NOT override existing rules
+   =========================================================================
+   Breakpoints:
+   - 1200px : Large desktop tweaks
+   - 1024px : Tablet landscape
+   -  900px : Tablet portrait
+   -  768px : Large mobile / small tablet
+   -  600px : Mobile landscape
+   -  480px : Mobile portrait
+   -  380px : Small mobile
+   ========================================================================= */
+
+/* =========================================================================
+   Hamburger Menu Button (hidden by default on desktop)
+   ========================================================================= */
 .hamburger-btn {
     display: none;
     flex-direction: column;
