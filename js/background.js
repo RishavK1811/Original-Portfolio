@@ -1,3 +1,15 @@
+/**
+ * background.js — Full-page premium animated background
+ * 
+ * Features:
+ *  - Deep black base with flowing aurora gradient meshes
+ *  - Floating particle constellation system with mouse interaction
+ *  - Smooth animated gradient blobs that drift and morph
+ *  - Interactive mouse ripple/glow following cursor
+ *  - Performance-optimized: RAF, visibility API, pixel ratio capping
+ *  - Noise-based organic movement for natural feel
+ */
+
 (function () {
     'use strict';
 
