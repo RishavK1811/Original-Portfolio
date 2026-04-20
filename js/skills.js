@@ -17,9 +17,12 @@ function initThreeJSGlobe(container) {
     const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
     camera.position.z = 300; // Pulled back slightly for better view
 
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    // Use lower-cost settings on mobile/low-end devices
+    const isMobile = window.innerWidth <= 768;
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: !isMobile });
     renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
+    // Cap pixel ratio at 1.5 to reduce GPU fill-rate pressure
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     container.appendChild(renderer.domElement);
 
     // BACKGROUND WIREFRAME GLOBE
@@ -53,22 +56,7 @@ function initThreeJSGlobe(container) {
     starsMesh.position.z = -150; // Push stars deep into the background
     scene.add(starsMesh);
 
-    // --- GLOBAL MOUSE DOT GLOW (Premium Mask Light tracking cursor) ---
-    const dotGlow = document.querySelector('.bg-dot-glow');
-    if (dotGlow) {
-        document.addEventListener('mousemove', (e) => {
-            // Apply the mask mapping directly to the client cursor position securely
-            const mask = `radial-gradient(circle 120px at ${e.clientX}px ${e.clientY}px, black 0%, transparent 100%)`;
-            dotGlow.style.webkitMaskImage = mask;
-            dotGlow.style.maskImage = mask;
-        });
-
-        document.addEventListener('mouseleave', () => {
-            const clearMask = `radial-gradient(circle 0px at 50% 50%, black 0%, transparent 100%)`;
-            dotGlow.style.webkitMaskImage = clearMask;
-            dotGlow.style.maskImage = clearMask;
-        });
-    }
+    // NOTE: bg-dot-glow tracking is handled centrally in main.js — removed duplicate here
 
     // ICONS GROUP (Orbiting Elements)
     const group = new THREE.Group();
@@ -76,20 +64,18 @@ function initThreeJSGlobe(container) {
 
     // Definiton of Skills using FontAwesome Unicodes
     const skills = [
-        { name: 'React', unicode: '\uf41b', color: '#61dbfb' },
-        { name: 'JavaScript', unicode: '\uf3b8', color: '#f0db4f' },
-        { name: 'Node.js', unicode: '\uf3d3', color: '#68a063' },
         { name: 'Python', unicode: '\uf3e2', color: '#306998' },
-        { name: 'Java', unicode: '\uf4e4', color: '#f89820' },
-        { name: 'Spring Boot', unicode: '\uf011', color: '#6db33f', font: '"Font Awesome 6 Free"', weight: '900' }, // Power icon
-        { name: 'Docker', unicode: '\uf395', color: '#0db7ed' },
-        { name: 'Git', unicode: '\uf1d3', color: '#f34f29' },
-        { name: 'GitHub', unicode: '\uf09b', color: '#ffffff' },
-        { name: 'CSS3', unicode: '\uf38b', color: '#264de4' },
+        { name: 'JavaScript', unicode: '\uf3b8', color: '#f0db4f' },
         { name: 'HTML5', unicode: '\uf13b', color: '#e34c26' },
-        { name: 'Database', unicode: '\uf1c0', color: '#4db33d', font: '"Font Awesome 6 Free"', weight: '900' },
+        { name: 'CSS3', unicode: '\uf38b', color: '#264de4' },
         { name: 'Linux', unicode: '\uf17c', color: '#f8fafc' },
-        { name: 'Vue.js', unicode: '\uf41f', color: '#41b883' }
+        { name: 'Ubuntu', unicode: '\uf31b', color: '#E95420' },
+        { name: 'Networking', unicode: '\uf6ff', color: '#0ea5e9', font: '"Font Awesome 6 Free"', weight: '900' },
+        { name: 'Ethical Hacking', unicode: '\uf21b', color: '#9d4edd', font: '"Font Awesome 6 Free"', weight: '900' },
+        { name: 'Security', unicode: '\uf3ed', color: '#10b981', font: '"Font Awesome 6 Free"', weight: '900' },
+        { name: 'Nmap', unicode: '\uf002', color: '#f59e0b', font: '"Font Awesome 6 Free"', weight: '900' },
+        { name: 'Wireshark', unicode: '\uf06e', color: '#38B2AC', font: '"Font Awesome 6 Free"', weight: '900' },
+        { name: 'Frontend', unicode: '\uf121', color: '#61dbfb', font: '"Font Awesome 6 Free"', weight: '900' }
     ];
 
     // Function to generate the exact icon look via Canvas
@@ -238,15 +224,17 @@ function initThreeJSGlobe(container) {
     globe.rotation.x = targetRotationX;
     group.rotation.x = targetRotationX;
 
-    // ANIMATION LOOP
+    // ANIMATION LOOP — only runs when canvas is visible (IntersectionObserver)
+    let rafId = null;
+    let isVisible = false;
+
     function animate() {
-        requestAnimationFrame(animate);
+        if (!isVisible) { rafId = null; return; }
+        rafId = requestAnimationFrame(animate);
 
         // SLOWLY ANIMATE STARFIELD
         starsMesh.rotation.y += 0.0003;
         starsMesh.rotation.x += 0.0001;
-
-
 
         if (!isDragging) {
             targetRotationY -= autoRotateSpeed; // Continuous auto rotation
@@ -264,7 +252,7 @@ function initThreeJSGlobe(container) {
             if (activeSpriteTimer <= 0) {
                 activeSprite.userData.targetScale = activeSprite.userData.baseScale;
                 if (Math.abs(activeSprite.scale.x - activeSprite.userData.baseScale) < 0.1) {
-                    activeSprite = null; // Animation sequence finished
+                    activeSprite = null;
                 }
             }
         }
@@ -272,24 +260,49 @@ function initThreeJSGlobe(container) {
         // Animate all sprites towards their target scale smoothly
         group.children.forEach(sprite => {
             const diff = sprite.userData.targetScale - sprite.scale.x;
-            // Avoid endless micro-updates due to floating point comparisons.
             if (Math.abs(diff) > 0.01) {
-                sprite.scale.x += diff * 0.15; // Smooth scale spring
-                sprite.scale.y = sprite.scale.x; // Keep aspect ratio
+                sprite.scale.x += diff * 0.15;
+                sprite.scale.y = sprite.scale.x;
             }
         });
 
         renderer.render(scene, camera);
     }
-    animate();
 
-    // RESIZE HANDLING
+    // Start/stop animation based on visibility
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            isVisible = entry.isIntersecting;
+            if (isVisible && !rafId) {
+                rafId = requestAnimationFrame(animate);
+            }
+        });
+    }, { threshold: 0.1 });
+    observer.observe(container);
+
+    // Also pause when tab is hidden
+    document.addEventListener('visibilitychange', () => {
+        isVisible = !document.hidden && observer;
+        if (isVisible && !rafId) rafId = requestAnimationFrame(animate);
+    });
+
+    // RESIZE HANDLING — debounced to avoid layout thrash
+    let resizeTimer;
     window.addEventListener('resize', () => {
-        const width = container.clientWidth;
-        const height = container.clientHeight;
-        renderer.setSize(width, height);
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        }, 150);
+    }, { passive: true });
+
+    // Cleanup on page hide
+    window.addEventListener('pagehide', () => {
+        if (rafId) cancelAnimationFrame(rafId);
+        observer.disconnect();
+        renderer.dispose();
     });
 }
-
